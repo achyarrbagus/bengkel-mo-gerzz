@@ -15,6 +15,8 @@ services:
       # Jika database ada di host (komputer lokal Anda), docker di Mac/Windows
       # membutuhkan host.docker.internal untuk mengakses localhost milik host.
       - DB_HOST=host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - inventaris-network
 
