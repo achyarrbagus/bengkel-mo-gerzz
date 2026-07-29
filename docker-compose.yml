@@ -8,33 +8,16 @@ services:
     container_name: inventaris_app
     restart: unless-stopped
     ports:
-      - "8000:80"
+      - "8100:80"
     volumes:
       - .:/var/www/html
     environment:
-      - DB_HOST=db
-    depends_on:
-      - db
-    networks:
-      - inventaris-network
-
-  db:
-    image: mysql:8.0
-    container_name: inventaris_db
-    restart: unless-stopped
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: ${DB_DATABASE:-inventaris_bengkel}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
-    volumes:
-      - db_data:/var/lib/mysql
+      # Jika database ada di host (komputer lokal Anda), docker di Mac/Windows
+      # membutuhkan host.docker.internal untuk mengakses localhost milik host.
+      - DB_HOST=host.docker.internal
     networks:
       - inventaris-network
 
 networks:
   inventaris-network:
     driver: bridge
-
-volumes:
-  db_data:
